@@ -27,10 +27,10 @@ exports.deleteProduct=async(req, res,next) => {
         if(!product){
             return res.status(404).json({message:'Product not found'})
           }
-          const messageToLog = `Product ${product._id} was soft deleted at ${new Date().toISOString()}\n`
+          const messageToLog = `${product._id} deleted at ${new Date().toISOString()}`
           fs.appendFileSync('deleteProduct.log', messageToLog)
 
-          res.json({message:'Product soft deleted',product})
+          res.json({message:'Product deleted',product})
     }catch(error){
         next(error)
     }
