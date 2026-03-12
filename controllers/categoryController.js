@@ -3,10 +3,10 @@ const Category=require('../models/Category')
 
 exports.deleteCategory=async(req, res,next) => {
     try {
-        const products = await Product.find({ category: req.params.id })
-        if(products.length > 0) {
-            return res.status(400).json({message:'Cannot delete category with existing products'})
-        }
+        const product = await Product.exists({ category: req.params.id })
+        if(product){
+        return res.status(400).json({message:'Cannot delete category with existing products'})
+     }
 
         const category=await Category.findByIdAndDelete(req.params.id)
         if(!category){
